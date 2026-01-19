@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './Header.css'
-export function Header() {
+import { cartQuantity } from '../../utils/cart';
+export function Header({ cart }) {
   return (
     <>
       <div className="header">
@@ -28,7 +29,7 @@ export function Header() {
 
           <NavLink className="cart-link header-link" to="/checkout">
             <img className="cart-icon" src="images/icons/cart-icon.png" />
-            <div className="cart-quantity">3</div>
+            <div className="cart-quantity">{ cartQuantity( cart ) }</div>
             <div className="cart-text">Cart</div>
           </NavLink>
         </div>

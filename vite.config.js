@@ -4,4 +4,14 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {  //whenever its stsrts with this '/api' it will add 'http://localhost:3000' by default
+        target: 'http://localhost:3000'
+      },
+      '/images': {
+        target: 'http://localhost:3000'
+      },
+    }
+  }
 })

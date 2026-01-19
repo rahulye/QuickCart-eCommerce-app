@@ -3,22 +3,20 @@ import axios  from 'axios'
 import { Header } from '../components/Header'
 import './HomePage.css'
 
-export function HomePage() {
-
+export function HomePage({ cart }) {
   const [ products , setProducts ] = useState( [] ); // to save and manage the products 
-
   useEffect( () => {  // this makes render the products only once the HomePage component is created
-    axios.get('http://localhost:3000/api/products')
+    axios.get('/api/products') //to get products data
       .then( (response) => {
         setProducts(response.data);
       })
       .catch( error => console.error( "API error : " + error) );
   },[]);
-
+  
   return (
     <>
       <title>QuickCart</title>
-      <Header />  
+      <Header cart={ cart }/>  
       <div className="home-page">
         <div className="products-grid">
           {
