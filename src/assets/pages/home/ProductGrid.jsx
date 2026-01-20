@@ -1,23 +1,6 @@
-import axios  from 'axios' 
-import { useEffect, useState } from 'react'
-import { Header } from '../components/Header'
-import './HomePage.css'
-
-export function HomePage({ cart }) {
-  const [ products , setProducts ] = useState( [] ); // to save and manage the products 
-  useEffect( () => {  // this makes render the products only once the HomePage component is created
-    axios.get('/api/products') //to get products data
-      .then( (response) => {
-        setProducts(response.data);
-      })
-      .catch( error => console.error( "API error : " + error) );
-  },[]);
-  
+export function ProductGrid({ products }) {
   return (
-    <>
-      <title>QuickCart</title>
-      <Header cart={ cart }/>  
-      <div className="home-page">
+    <div className="home-page">
         <div className="products-grid">
           {
             products.map( (product) => {
@@ -75,6 +58,5 @@ export function HomePage({ cart }) {
           }
         </div>
       </div>
-    </>
   )
-};
+}
