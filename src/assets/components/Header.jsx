@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import './Header.css'
 import { cartQuantity } from '../../utils/cart';
+import './Header.css'
 export function Header({ cart }) {
   return (
     <>

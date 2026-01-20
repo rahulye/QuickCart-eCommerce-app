@@ -8,10 +8,16 @@ import './CheckoutPage.css';
 import './CheckoutPage-header.css'
 export function CheckoutPage({ cart }) {
   const [ deliveryOption , setdeliveryOption ] = useState([]);
+  const [ paymentSummary , setpaymentSummary ] = useState(null);
   useEffect( () => {
     axios.get( '/api/delivery-options?expand=estimatedDeliveryTime' )
       .then( ( response ) => {
         setdeliveryOption( response.data )
+      })
+      .catch( (error) => console.log('API error : ' + error) )
+    axios.get( '/api/payment-summary' )
+      .then( ( response ) => {
+        setpaymentSummary( response.data )
       })
       .catch( (error) => console.log('API error : ' + error) )
     }, [])
@@ -37,14 +43,12 @@ export function CheckoutPage({ cart }) {
           </div>
         </div>
       </div>
-
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
-
         <div className="checkout-grid">
           <div className="order-summary">
             {
-              cart.map( ( cartItem ) => {
+              deliveryOption.length>0 && cart.map( ( cartItem ) => {
                 const selectedDeliveryOption = deliveryOption.find( (deliveryOption) => {
                   return deliveryOption.id === cartItem.deliveryOptionId;
                 })
@@ -62,7 +66,7 @@ export function CheckoutPage({ cart }) {
                           { cartItem.product.name }
                         </div>
                         <div className="product-price">
-                          { formatPrice( cartItem.product.priceCents )}
+                          { formatPrice( cartItem.product.priceCents ) }
                         </div>
                         <div className="product-quantity">
                           <span>
@@ -112,40 +116,44 @@ export function CheckoutPage({ cart }) {
             }
           </div>
 
-          <div className="payment-summary">
+          { // we need guard here cuz useeffect get axios after this componenet created when initial react try to render paySummary would be null-->rise error
+            paymentSummary && ( 
+            <div className="payment-summary">
               <div className="payment-summary-title">
                 Payment Summary
               </div>
 
               <div className="payment-summary-row">
-                <div>Items (3):</div>
-                <div className="payment-summary-money">$42.75</div>
+                <div>Items ({ paymentSummary.totalItems }):</div>
+                <div className="payment-summary-money">{ formatPrice( paymentSummary.productCostCents ) }</div>
               </div>
 
               <div className="payment-summary-row">
                 <div>Shipping &amp; handling:</div>
-                <div className="payment-summary-money">$4.99</div>
+                <div className="payment-summary-money">{ formatPrice( paymentSummary.shippingCostCents ) }</div>
               </div>
 
               <div className="payment-summary-row subtotal-row">
                 <div>Total before tax:</div>
-                <div className="payment-summary-money">$47.74</div>
+                <div className="payment-summary-money">{ formatPrice( paymentSummary.totalCostBeforeTaxCents ) }</div>
               </div>
 
               <div className="payment-summary-row">
                 <div>Estimated tax (10%):</div>
-                <div className="payment-summary-money">$4.77</div>
+                <div className="payment-summary-money">{ formatPrice( paymentSummary.taxCents ) }</div>
               </div>
 
               <div className="payment-summary-row total-row">
                 <div>Order total:</div>
-                <div className="payment-summary-money">$52.51</div>
+                <div className="payment-summary-money">{ formatPrice( paymentSummary.totalCostCents ) }</div>
               </div>
 
               <button className="place-order-button button-primary">
                 Place your order
               </button>
-          </div>
+            </div>
+            )
+          }
         </div>
       </div>
     </>
