@@ -6,17 +6,29 @@ import './HomePage.css'
 
 export function HomePage({ cart }) {
   const [ products , setProducts ] = useState( [] ); // to save and manage the products 
-  useEffect( () => {  // this makes render the products only once the HomePage component is created
-    axios.get('/api/products') //to get products data
-      .then( (response) => {
-        setProducts(response.data);
-      })
-      .catch( error => console.error( "API error : " + error) );
+  useEffect(() => {
+    document.title = 'QuickCart';
+  }, []);
+
+  // useEffect( () => {  // this makes render the products only once the HomePage component is created
+  //   axios.get('/api/products') //to get products data
+  //     .then( (response) => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch( error => console.error( "API error : " + error) );
+  // },[]);
+
+  //--> using async 
+  useEffect( () => {
+    const fetchProducts = async () => {
+      const response = await axios.get('/api/products');
+      setProducts( response.data );
+    }
+    fetchProducts();
   },[]);
   
   return (
     <>
-      <title>QuickCart</title>
       <Header cart={ cart }/> 
       <ProductGrid products={ products }/>
     </>

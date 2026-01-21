@@ -5,15 +5,18 @@ import { OrderGrid } from './OrderGrid';
 import './OrderPage.css'
 export function OrderPage({ cart }) {
   const [ order , setOrder ] = useState([]);
+  useEffect(() => {
+    document.title = 'Orders';
+  }, []);
   useEffect( () => {
-    axios.get('/api/orders?expand=products')
-    .then( (response) => {
+    const fetchOrderData = async () => {
+      const response = await axios.get('/api/orders?expand=products');
       setOrder( response.data )
-    })
+    }
+    fetchOrderData();
   },[])
   return (
     <>
-      <title>Orders</title>
       <Header cart={ cart } />
       <div className="orders-page">
         <div className="page-title">Your Orders</div>

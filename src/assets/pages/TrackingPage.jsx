@@ -1,10 +1,15 @@
-import { Link } from 'react-router'
+import { useEffect } from 'react';
+import { Link , useParams } from 'react-router'
 import { Header } from '../components/Header'
 import './TrackingPage.css'
 export function TrackingPage({ cart }) {
+  useEffect(() => {
+    document.title = 'Track';
+  }, []);
+  const param = useParams();
+  console.log(param);
   return (
     <>
-      <title>Track</title>
       <Header cart={ cart }/>
       <div className="tracking-page">
         <div className="order-tracking">
@@ -31,7 +36,7 @@ export function TrackingPage({ cart }) {
               Preparing
             </div>
             <div className="progress-label current-status">
-              Shipped
+              Shipped 
             </div>
             <div className="progress-label">
               Delivered
