@@ -5,10 +5,10 @@ import { ProductGrid } from './ProductGrid'
 import './HomePage.css'
 
 export function HomePage({ cart }) {
-  const [ products , setProducts ] = useState( [] ); // to save and manage the products 
   useEffect(() => {
     document.title = 'QuickCart';
   }, []);
+  const [ products , setProducts ] = useState( [] ); // to save and manage the products 
 
   // useEffect( () => {  // this makes render the products only once the HomePage component is created
   //   axios.get('/api/products') //to get products data
@@ -18,7 +18,7 @@ export function HomePage({ cart }) {
   //     .catch( error => console.error( "API error : " + error) );
   // },[]);
 
-  //--> using async 
+  //--> using async , we cant directly use the aysnc in useEffect cuz its returns a promise, so we create a function and we use async 
   useEffect( () => {
     const fetchProducts = async () => {
       const response = await axios.get('/api/products');

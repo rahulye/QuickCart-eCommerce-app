@@ -20,11 +20,11 @@ function App() {
   return (
     <>    
       <Routes>
-        {/* <Route path='/' element={ <HomePage/> }></Route> */}  
+        {/* <Route path='/' element={ <HomePage/> }></Route> */}
         <Route index element={ <HomePage cart={ cart }/> }/>
         <Route path='checkout' element={ <CheckoutPage cart={ cart }/> }/>
         <Route path='orders' element={ <OrderPage cart={ cart } /> }/>
-        <Route path='track/:orderId/:productId"' element={ <TrackingPage cart={ cart } /> }/>
+        <Route path='track/:orderId/:productId' element={ <TrackingPage cart={ cart } /> }/>
         <Route path='*' element={ <NotFoundPage/> }/>
       </Routes>
     </>

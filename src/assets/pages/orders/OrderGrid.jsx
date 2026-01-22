@@ -37,7 +37,7 @@ export function OrderGrid({ order }) {
                         </div>
 
                         <div className="product-actions">
-                          <Link to={ `/track/orderId:${ orderItem.id }/productId:${ productItem.productId }` }>
+                          <Link to={ `/track/${orderItem.id}/${productItem.productId}` }>
                             <button className="track-package-button button-secondary">
                               Track package
                             </button>
