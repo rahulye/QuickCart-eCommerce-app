@@ -1,9 +1,9 @@
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary';
-export function CheckoutGrid({ deliveryOption , paymentSummary , cart}) {
+export function CheckoutGrid({ deliveryOption , paymentSummary , cart , loadCart}) {
   return (
     <div className="checkout-grid">
-      <OrderSummary deliveryOption={ deliveryOption } cart={ cart } />
+      <OrderSummary deliveryOption={ deliveryOption } cart={ cart } loadCart={ loadCart }/>
       <PaymentSummary paymentSummary={ paymentSummary }/>
     </div>
   )

@@ -10,19 +10,21 @@ import './App.css'
 
 function App() {
   const [ cart , setCart ] = useState( [] ); // to save and manage the products 
+
+  const loadCart = async () => {
+    const response = await axios.get('/api/cart-items?expand=product'); //to get cart data and product data
+    setCart(response.data);        
+  } 
+  
   useEffect( () => {
-    axios.get('/api/cart-items?expand=product') //to get cart data and product data
-      .then( (response) => {
-        setCart(response.data);
-      })
-      .catch( (error) => console.error( "API error : " + error) );
+    loadCart();
   },[]);
   return (
     <>    
       <Routes>
         {/* <Route path='/' element={ <HomePage/> }></Route> */}
-        <Route index element={ <HomePage cart={ cart }/> }/>
-        <Route path='checkout' element={ <CheckoutPage cart={ cart }/> }/>
+        <Route index element={ <HomePage cart={ cart } loadCart= { loadCart } /> }/>
+        <Route path='checkout' element={ <CheckoutPage cart={ cart } loadCart={ loadCart } /> }/>
         <Route path='orders' element={ <OrderPage cart={ cart } /> }/>
         <Route path='track/:orderId/:productId' element={ <TrackingPage cart={ cart } /> }/>
         <Route path='*' element={ <NotFoundPage/> }/>
@@ -32,3 +34,4 @@ function App() {
 }             
 
 export default App
+ 

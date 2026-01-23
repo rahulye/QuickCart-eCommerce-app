@@ -4,7 +4,7 @@ import { Header } from '../../components/Header'
 import { ProductGrid } from './ProductGrid'
 import './HomePage.css'
 
-export function HomePage({ cart }) {
+export function HomePage({ cart , loadCart }) {
   useEffect(() => {
     document.title = 'QuickCart';
   }, []);
@@ -30,7 +30,7 @@ export function HomePage({ cart }) {
   return (
     <>
       <Header cart={ cart }/> 
-      <ProductGrid products={ products }/>
+      <ProductGrid products={ products } loadCart={ loadCart }/>
     </>
   )
 };
