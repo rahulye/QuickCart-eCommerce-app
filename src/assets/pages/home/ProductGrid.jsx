@@ -5,7 +5,7 @@ export function ProductGrid({ products , loadCart }) {
         <div className="products-grid">
           {
             products.map( ( product ) => {
-              return (
+              return (  // we again created separate component cuz, the state should be in the closest to component function line not inside a loop
                 <Product key={ product.id } product={ product } loadCart={ loadCart } />
               )
             })

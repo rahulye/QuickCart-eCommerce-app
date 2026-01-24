@@ -2,8 +2,9 @@ import dayjs from "dayjs"
 import { Fragment } from "react"
 import { Link } from 'react-router'
 import { OrderHeader } from "./OrderHeader"
+import axios from "axios"
 
-export function OrderGrid({ order }) {
+export function OrderGrid({ order , loadCart}) {
   return (
     <div className="orders-grid">
       {
@@ -14,6 +15,13 @@ export function OrderGrid({ order }) {
               <div className="order-details-grid">
                 {
                   orderItem.products.map( (productItem) => { //to acees second array values inside
+                    const addProduct = async () => {
+                      await axios.post('/api/cart-items', {
+                        productId : productItem.productId,
+                        quantity :  1
+                      });
+                      await loadCart();
+                    }
                     return (
                       <Fragment key={ productItem.productId }> {/*in order to use key we cant use normal fragments <></>*/}
                         <div className="product-image-container">
@@ -32,7 +40,7 @@ export function OrderGrid({ order }) {
                           </div>
                           <button className="buy-again-button button-primary">
                             <img className="buy-again-icon" src="images/icons/buy-again.png" />
-                            <span className="buy-again-message">Add to Cart</span>
+                            <span className="buy-again-message" onClick={ addProduct }>Add to Cart</span>
                           </button>
                         </div>
 

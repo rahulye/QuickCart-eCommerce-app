@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { OrderGrid } from './OrderGrid';
 import './OrderPage.css'
-export function OrderPage({ cart }) {
+export function OrderPage({ cart , loadCart }) {
   const [ order , setOrder ] = useState([]);
   useEffect(() => {
     document.title = 'Orders';
@@ -20,7 +20,7 @@ export function OrderPage({ cart }) {
       <Header cart={ cart } />
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
-        <OrderGrid order={ order }/>
+        <OrderGrid order={ order } loadCart={ loadCart }/>
       </div>
     </>
   )
