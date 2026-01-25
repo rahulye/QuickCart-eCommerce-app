@@ -7,7 +7,7 @@ export function CartItemDetails({ cartItem , selectedDeliveryOption , deliveryOp
   let [ isToggle , setIsToggle ] = useState(false);
   let [ quantity , setUpdateQuantity ] = useState(cartItem.quantity);
   const toggleInput = () => {
-    setIsToggle( prev => !prev );
+    setIsToggle(!isToggle);
   }
   //update-btn
   const updateQuantityInput = (event) => {
@@ -31,6 +31,11 @@ export function CartItemDetails({ cartItem , selectedDeliveryOption , deliveryOp
   useEffect( () => {
     setUpdateQuantity( cartItem.quantity )
   },[ cartItem.quantity ])
+  //delete-btn
+  const updateDeleteProduct = async () => {
+    await axios.delete(`/api/cart-items/${cartItem.productId}`);
+    await loadCart();
+  }
   //onkey
   const updateOnKey = ( event ) => {
     if( event.key === 'Enter' ) {
@@ -77,7 +82,7 @@ export function CartItemDetails({ cartItem , selectedDeliveryOption , deliveryOp
                 Update
               </span> 
             }
-            <span className="delete-quantity-link link-primary">
+            <span onClick={ updateDeleteProduct } className="delete-quantity-link link-primary">
               Delete
             </span>
           </div>
