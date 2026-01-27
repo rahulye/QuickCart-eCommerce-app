@@ -36,10 +36,13 @@ export function Header({ cart }) {
       <div className="header">
         <div className="left-section">
           <NavLink to="/" className="header-link">
-            <img className="logo"
-              src="images/logo-white.png" />
-            <img className="mobile-logo"
-              src="images/mobile-logo-white.png" />
+            <img style={{ 
+             width: '2rem'
+            }} src="/favicon_io/favicon-32x32.png" alt="app-logo"/>
+            {/* <img className="logo"
+              src="images/logo-white.png" /> */}
+            {/* <img className="mobile-logo"
+              src="images/mobile-logo-white.png" /> */}
           </NavLink>
         </div>
         <div className="middle-section">
